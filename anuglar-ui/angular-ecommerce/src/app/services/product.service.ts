@@ -10,6 +10,7 @@ import {ProductCategory} from "../common/product-category";
   providedIn: 'root'
 })
 export class ProductService {
+
   private baseUrl = 'http://localhost:8082/api/products';
   private categoryUrl = 'http://localhost:8082/api/product-category';
   constructor(private httpClient: HttpClient) { }

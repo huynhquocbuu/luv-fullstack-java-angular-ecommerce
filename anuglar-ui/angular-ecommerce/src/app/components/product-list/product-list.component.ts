@@ -2,13 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from "../../common/product";
 import {ProductService} from "../../services/product.service";
 import {ActivatedRoute} from "@angular/router";
+import {CartItem} from "../../common/cart-item";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list-grid.component.html',
+  templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
   products: Product[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
@@ -19,9 +22,9 @@ export class ProductListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
 
-  previousKeyword: string = "";
-
+  previousKeyword: string = null;
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -43,10 +46,9 @@ export class ProductListComponent implements OnInit {
 
   }
 
-
   handleSearchProducts() {
 
-    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword');
 
     // if we have a different keyword than previous
     // then set thePageNumber to 1
@@ -60,12 +62,9 @@ export class ProductListComponent implements OnInit {
     console.log(`keyword=${theKeyword}, thePageNumber=${this.thePageNumber}`);
 
     // now search for the products using keyword
-    this.productService
-      .searchProductsPaginate(
-        this.thePageNumber - 1,
-        this.thePageSize,
-        theKeyword)
-      .subscribe(this.processResult());
+    this.productService.searchProductsPaginate(this.thePageNumber - 1,
+      this.thePageSize,
+      theKeyword).subscribe(this.processResult());
 
   }
 
@@ -76,7 +75,7 @@ export class ProductListComponent implements OnInit {
 
     if (hasCategoryId) {
       // get the "id" param string. convert string to a number using the "+" symbol
-      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+      this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
     }
     else {
       // not category id available ... default to category id 1
@@ -105,18 +104,30 @@ export class ProductListComponent implements OnInit {
       .subscribe(this.processResult());
   }
 
-  updatePageSize(pageSize: string) {
-    this.thePageSize = +pageSize;
-    this.thePageNumber = 1;
-    this.listProducts();
-  }
-
   processResult() {
-    return (data: any) => {
+    return data => {
       this.products = data._embedded.products;
       this.thePageNumber = data.page.number + 1;
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
   }
+
+  updatePageSize(pageSize: number) {
+    this.thePageSize = pageSize;
+    this.thePageNumber = 1;
+    this.listProducts();
+  }
+
+  addToCart(theProduct: Product) {
+
+    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+
+    // TODO ... do the real work
+    const theCartItem = new CartItem(theProduct);
+
+    this.cartService.addToCart(theCartItem);
+  }
+
+  protected readonly HTMLInputElement = HTMLInputElement;
 }

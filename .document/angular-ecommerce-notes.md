@@ -49,5 +49,25 @@ ng g c components/search
 
 ## create product-detail component
 ng g c components/product-detail
+
+## cart
+ng g class common/cart-item
+ng g component components/cart-status
+ng g service services/cart
+
+##change tsconfig.json
+"compilerOptions": {
+  ....
+  "strict": false,
+  },
+  
+  "angularCompilerOptions": {
+    ...
+    "strictDomEventTypes": false
+}
+
+
+## cart details
+ng g component components/cart-details
 ```
 
