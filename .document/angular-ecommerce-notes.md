@@ -12,9 +12,22 @@ ng new angular-ecommerce
 ## run & build angular project
 npm run start
 npm run build
+
 ```
 
 ```shell
+npm install bootstrap
+npm install @fortawesome/fontawesome-free
+npm install @ng-bootstrap/ng-bootstrap
+
+ng add @angular/localize
+## change angular.json file
+"styles": [
+"src/styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css",
+"node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+]
+
 ## create product-list component
 ng g c components/product-list
 
@@ -37,3 +50,4 @@ ng g c components/search
 ## create product-detail component
 ng g c components/product-detail
 ```
+
