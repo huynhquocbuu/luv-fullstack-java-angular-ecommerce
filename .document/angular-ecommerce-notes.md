@@ -15,7 +15,7 @@ npm run build
 ```
 
 ```shell
-## create product-list components
+## create product-list component
 ng g c components/product-list
 
 ## create product class
@@ -24,4 +24,10 @@ ng g class common/product
 ## create product Service
 ng g service services/product
 
+
+## create product-category-menu components
+ng g c components/product-category-menu
+
+## create product-category class
+ng g class common/product-category
 ```
