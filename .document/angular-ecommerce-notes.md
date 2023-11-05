@@ -30,4 +30,7 @@ ng g c components/product-category-menu
 
 ## create product-category class
 ng g class common/product-category
+
+## create search component
+ng g c components/search
 ```
