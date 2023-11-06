@@ -79,5 +79,14 @@ ng g class common/state
 
 ## validators
 ng g class validators/CustomValidators
+
+## checkout
+ng g service services/checkout
+
+ng g class common/order
+ng g class common/order-item
+ng g class common/address
+ng g class common/customer
+ng g class common/purchase
 ```
 
