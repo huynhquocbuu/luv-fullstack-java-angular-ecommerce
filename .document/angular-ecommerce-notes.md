@@ -59,6 +59,7 @@ ng g service services/cart
 "compilerOptions": {
   ....
   "strict": false,
+  "noPropertyAccessFromIndexSignature": false,
   },
   
   "angularCompilerOptions": {
@@ -69,5 +70,14 @@ ng g service services/cart
 
 ## cart details
 ng g component components/cart-details
+
+## checkout
+ng g component components/checkout
+ng g service services/shop-form
+ng g class common/country
+ng g class common/state
+
+## validators
+ng g class validators/CustomValidators
 ```
 
